@@ -12,17 +12,17 @@ This project was created using this command :
 ```
 mvn io.quarkus:quarkus-maven-plugin:1.6.0.Final:create \
     -DprojectGroupId=com.ibm.demo \
-    -DprojectArtifactId=hazelcast-service \
+    -DprojectArtifactId=hazelcast-client \
     -DclassName="com.ibm.demo.rest.json.SimpleKeyValue" \
     -Dpath="/simplekv" \
     -Dextensions="resteasy-jsonb"
 ```
 
-The project is created in the folder "hazelcast-service".
+The project is created in the folder "hazelcast-client".
 If you want to try this, run :
 
 ```
-cd hazelcast-service
+cd hazelcast-client
 ./mvnw compile quarkus:dev
 ```
 
