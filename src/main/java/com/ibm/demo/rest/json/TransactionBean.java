@@ -1,3 +1,4 @@
+// Bean based on Word doc with transaction content.
 package com.ibm.demo.rest.json;
 
 public class TransactionBean {
