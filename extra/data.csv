@@ -1,0 +1,6 @@
+ROW CLIENT_ID   ACCOUNT_ID  DATE    TYPE    K_SYMBOL            AMOUNT      BALANCE
+1   1           1           950324  CREDIT                      1000.00     1000.00
+2   1           1           950413  CREDIT                      3679.00     4679.00
+3   1           1           950423  CREDIT                      12600.00    17279.00
+4   1           1           950430  CREDIT  INTEREST CREDITED   19.20       17298.20
+5   1           1           950513  CREDIT                      3679.00     20977.20
