@@ -11,10 +11,13 @@ import javax.ws.rs.core.Response;
 
 import java.util.Collection;
 import java.util.logging.Logger;
+import java.util.List;
+import java.util.ArrayList;
+import javax.ws.rs.core.MediaType;
 
 @Path("/transaction")
-@Produces("application/json")
-@Consumes("application/json")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class TransactionHC {
     private final Logger logger = Logger.getLogger(TransactionHC.class.getName());
     private final String transactionMapName = "TransactionsMap";
@@ -40,12 +43,28 @@ public class TransactionHC {
     @GET
     public Response getByClient(@QueryParam("key") String key) {
         Collection<HazelcastJsonValue> transactionsCredit = retrieveMap(transactionMapName).values(Predicates.equal("client_id", key));
+        //TransactionsBean tb = new TransactionsBean();
+        List<String> transactions = new ArrayList<String>();
 
         logger.info("Listing transactions for client : " + key);
         for (HazelcastJsonValue transactionCredit: transactionsCredit) {
-            logger.info("> " + transactionCredit.toString());
+            //logger.info("> " + transactionCredit.toString());
+            transactions.add(transactionCredit.toString());
         }
-        return Response.status(201).build(); 
+
+        logger.info(transactions.toString());
+        //return transactions.toString();
+
+
+        return Response
+            .status(200)
+            .header("Access-Control-Allow-Origin", "*")
+            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+            .header("Access-Control-Allow-Credentials", "true")
+            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+            .header("Access-Control-Max-Age", "1209600")
+            .entity(transactions.toString())
+            .build();
     }
 
 }

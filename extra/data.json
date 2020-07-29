@@ -1,10 +1,42 @@
-{
-    "row_number":"1",
-    "client_id":"1",
-    "account_id":"1",
-    "date":"950324",
-    "type":"CREDIT",
-    "k_symbol":"",
-    "amount":"1000.00",
-    "balance":"1000.00"
-}
+[
+  {
+    "row_number": "3",
+    "client_id": "1",
+    "account_id": "1",
+    "date": "950423",
+    "type": "CREDIT",
+    "k_symbol": "",
+    "amount": "12600.00",
+    "balance": "17279.00"
+  },
+  {
+    "row_number": "2",
+    "client_id": "1",
+    "account_id": "1",
+    "date": "950413",
+    "type": "CREDIT",
+    "k_symbol": "",
+    "amount": "3679.00",
+    "balance": "4679.00"
+  },
+  {
+    "row_number": "4",
+    "client_id": "1",
+    "account_id": "1",
+    "date": "950430",
+    "type": "CREDIT",
+    "k_symbol": "INTEREST CREDITED",
+    "amount": "19.20",
+    "balance": "17298.20"
+  },
+  {
+    "row_number": "1",
+    "client_id": "1",
+    "account_id": "1",
+    "date": "950324",
+    "type": "CREDIT",
+    "k_symbol": "",
+    "amount": "1000.00",
+    "balance": "1000.00"
+  }
+]
