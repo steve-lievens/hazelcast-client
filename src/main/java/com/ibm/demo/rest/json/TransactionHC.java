@@ -55,7 +55,7 @@ public class TransactionHC {
         logger.info(transactions.toString());
         //return transactions.toString();
 
-
+        // Adding a response with extra headers for CORS
         return Response
             .status(200)
             .header("Access-Control-Allow-Origin", "*")
