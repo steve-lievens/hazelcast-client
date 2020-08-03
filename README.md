@@ -54,6 +54,7 @@ If you look at what's in the repo, you'll see that the property is mapped to an 
 which I've set to "hz-hazelcast-enterprise.hazelcast-ops".
 This is the internal DNS name of the Hazelcast cluster on my OpenShift cluster. The first part "hz-hazelcast-enterprise" is the actual name of the Service object, the second part "hazelcast-ops" is the Project (or namespace) where my cluster is running. You need this extra part if this application runs in a separate project in order to resolve. 
 With this setup, I can run this code locally with the environment variable set and when I deploy to my cluster it will work without it.
+Same applies for the map name, which is using the env variable HAZELCAST_MAPNAME and defaults to "TransactionsMap".
 
 Let's compile it again :
 
