@@ -64,9 +64,3 @@ Let's compile it again :
 You can now test with a tool like Postman to POST data to the REST endpoint.
 In the Hazelcast management center, you can monitor which maps are being created and how many objects are there. You can even do a query on a key to see the contents of the object.
 
-Update :
-Before running locally, export the hazelcast_host
-
-```
-export HAZELCAST_HOST=158.177.180.83      
-```

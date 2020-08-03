@@ -1,5 +1,7 @@
 package com.ibm.demo.rest.json;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastJsonValue;
 import com.hazelcast.map.IMap;
@@ -20,7 +22,9 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 public class TransactionHC {
     private final Logger logger = Logger.getLogger(TransactionHC.class.getName());
-    private final String transactionMapName = "TransactionsMap";
+
+    @ConfigProperty(name = "HC_MAPNAME")
+    private String transactionMapName;
 
     @Inject
     HazelcastInstance hazelcastInstance;
