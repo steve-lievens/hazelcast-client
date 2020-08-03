@@ -43,11 +43,15 @@ public class TransactionHC {
         return Response.status(201).build(); 
     }
 
+    // Retrieve all transactions of a single client. (By Client ID)
+    // Needs a "key" query parameter which is equal to the client id.
     @Path("/getByClient")
     @GET
     public Response getByClient(@QueryParam("key") String key) {
+        // For now we get the full data set in one go. 
+        // If this becomes too big, we'll need to add start and end info based on the pagination
         Collection<HazelcastJsonValue> transactionsCredit = retrieveMap(transactionMapName).values(Predicates.equal("client_id", key));
-        //TransactionsBean tb = new TransactionsBean();
+
         List<String> transactions = new ArrayList<String>();
 
         logger.info("Listing transactions for client : " + key);
@@ -57,7 +61,6 @@ public class TransactionHC {
         }
 
         logger.info(transactions.toString());
-        //return transactions.toString();
 
         // Adding a response with extra headers for CORS
         return Response
