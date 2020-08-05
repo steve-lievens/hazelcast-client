@@ -1,16 +1,19 @@
 // Bean based on Word doc with transaction content.
 package com.ibm.demo.rest.json;
 
+
 public class TransactionBean {
 
-    private String row_number;
-    private String client_id;
-    private String account_id;
-    private String date;
-    private String type;
-    private String k_symbol;
-    private String amount;
-    private String balance;
+    private String ROW;
+    private String CLIENT_ID;
+    private String ACCOUNT_ID;
+    private String TRANS_ID;
+    private String DATE;
+    private String TYPE;
+    private String OPERATION;
+    private String K_SYMBOL;
+    private String AMOUNT;
+    private String BALANCE;
     
     public TransactionBean() {
     }
@@ -18,128 +21,159 @@ public class TransactionBean {
     @Override
     public String toString() {
         return "{" +
-                "\"row_number\":\"" + row_number + "\"" +
-                ", \"client_id\":\"" + client_id + "\"" +
-                ", \"account_id\":\"" + account_id + "\"" +
-                ", \"date\":\"" + date + "\"" +
-                ", \"type\":\"" + type + "\"" +
-                ", \"k_symbol\":\"" + k_symbol + "\"" +
-                ", \"amount\":\"" + amount + "\"" +
-                ", \"balance\":\"" + balance + "\"" +
+                "\"ROW\":\"" + ROW + "\"" +
+                ", \"CLIENT_ID\":\"" + CLIENT_ID + "\"" +
+                ", \"ACCOUNT_ID\":\"" + ACCOUNT_ID + "\"" +
+                ", \"TRANS_ID\":\"" + TRANS_ID + "\"" +
+                ", \"DATE\":\"" + DATE + "\"" +
+                ", \"TYPE\":\"" + TYPE + "\"" +
+                ", \"OPERATION\":\"" + OPERATION + "\"" +
+                ", \"K_SYMBOL\":\"" + K_SYMBOL + "\"" +
+                ", \"AMOUNT\":\"" + AMOUNT + "\"" +
+                ", \"BALANCE\":\"" + BALANCE + "\"" +
                 "}";
     }
 
+
+
     /**
-     * @return String return the client_id
+     * @return String return the ROW
      */
-    public String getClient_id() {
-        return client_id;
+    public String getROW() {
+        return ROW;
     }
 
     /**
-     * @param client_id the client_id to set
+     * @param ROW the ROW to set
      */
-    public void setClient_id(String client_id) {
-        this.client_id = client_id;
+    public void setROW(String ROW) {
+        this.ROW = ROW;
     }
 
     /**
-     * @return String return the account_id
+     * @return String return the CLIENT_ID
      */
-    public String getAccount_id() {
-        return account_id;
+    public String getCLIENT_ID() {
+        return CLIENT_ID;
     }
 
     /**
-     * @param account_id the account_id to set
+     * @param CLIENT_ID the CLIENT_ID to set
      */
-    public void setAccount_id(String account_id) {
-        this.account_id = account_id;
+    public void setCLIENT_ID(String CLIENT_ID) {
+        this.CLIENT_ID = CLIENT_ID;
     }
 
     /**
-     * @return String return the date
+     * @return String return the ACCOUNT_ID
      */
-    public String getDate() {
-        return date;
+    public String getACCOUNT_ID() {
+        return ACCOUNT_ID;
     }
 
     /**
-     * @param date the date to set
+     * @param ACCOUNT_ID the ACCOUNT_ID to set
      */
-    public void setDate(String date) {
-        this.date = date;
+    public void setACCOUNT_ID(String ACCOUNT_ID) {
+        this.ACCOUNT_ID = ACCOUNT_ID;
     }
 
     /**
-     * @return String return the type
+     * @return String return the TRANS_ID
      */
-    public String getType() {
-        return type;
+    public String getTRANS_ID() {
+        return TRANS_ID;
     }
 
     /**
-     * @param type the type to set
+     * @param TRANS_ID the TRANS_ID to set
      */
-    public void setType(String type) {
-        this.type = type;
+    public void setTRANS_ID(String TRANS_ID) {
+        this.TRANS_ID = TRANS_ID;
     }
 
     /**
-     * @return String return the k_symbol
+     * @return String return the DATE
      */
-    public String getK_symbol() {
-        return k_symbol;
+    public String getDATE() {
+        return DATE;
     }
 
     /**
-     * @param k_symbol the k_symbol to set
+     * @param DATE the DATE to set
      */
-    public void setK_symbol(String k_symbol) {
-        this.k_symbol = k_symbol;
+    public void setDATE(String DATE) {
+        this.DATE = DATE;
     }
 
     /**
-     * @return String return the amount
+     * @return String return the TYPE
      */
-    public String getAmount() {
-        return amount;
+    public String getTYPE() {
+        return TYPE;
     }
 
     /**
-     * @param amount the amount to set
+     * @param TYPE the TYPE to set
      */
-    public void setAmount(String amount) {
-        this.amount = amount;
+    public void setTYPE(String TYPE) {
+        this.TYPE = TYPE;
     }
 
     /**
-     * @return String return the balance
+     * @return String return the OPERATION
      */
-    public String getBalance() {
-        return balance;
+    public String getOPERATION() {
+        return OPERATION;
     }
 
     /**
-     * @param balance the balance to set
+     * @param OPERATION the OPERATION to set
      */
-    public void setBalance(String balance) {
-        this.balance = balance;
-    }
-
-
-    /**
-     * @return String return the row_number
-     */
-    public String getRow_number() {
-        return row_number;
+    public void setOPERATION(String OPERATION) {
+        this.OPERATION = OPERATION;
     }
 
     /**
-     * @param row_number the row_number to set
+     * @return String return the K_SYMBOL
      */
-    public void setRow_number(String row_number) {
-        this.row_number = row_number;
+    public String getK_SYMBOL() {
+        return K_SYMBOL;
+    }
+
+    /**
+     * @param K_SYMBOL the K_SYMBOL to set
+     */
+    public void setK_SYMBOL(String K_SYMBOL) {
+        this.K_SYMBOL = K_SYMBOL;
+    }
+
+    /**
+     * @return String return the AMOUNT
+     */
+    public String getAMOUNT() {
+        return AMOUNT;
+    }
+
+    /**
+     * @param AMOUNT the AMOUNT to set
+     */
+    public void setAMOUNT(String AMOUNT) {
+        this.AMOUNT = AMOUNT;
+    }
+
+    /**
+     * @return String return the BALANCE
+     */
+    public String getBALANCE() {
+        return BALANCE;
+    }
+
+    /**
+     * @param BALANCE the BALANCE to set
+     */
+    public void setBALANCE(String BALANCE) {
+        this.BALANCE = BALANCE;
     }
 
 }

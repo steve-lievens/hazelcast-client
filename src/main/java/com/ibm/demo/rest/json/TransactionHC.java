@@ -30,16 +30,48 @@ public class TransactionHC {
     HazelcastInstance hazelcastInstance;
 
     private IMap<String, HazelcastJsonValue> retrieveMap(String i_mapname) {
+        logger.info("Working with map " + i_mapname);
         return hazelcastInstance.getMap(i_mapname);
     }
 
+    // Creates a new transaction (only used to build demo data)
     @Path("/create")
     @POST
-    public Response create(TransactionBean t) {
-        logger.info("Creating transaction :");
+    public Response create(@QueryParam("key") String key, TransactionBean t) {
+        String mapname;
+        if(key != null){
+            mapname = key;
+        } else {
+            mapname = transactionMapName;
+        }
+            
+        logger.info("Creating transaction in map " + mapname);
         logger.info(t.toString());
-        retrieveMap(transactionMapName).put(t.getRow_number(), new HazelcastJsonValue(t.toString()));
+        retrieveMap(mapname).put(t.getROW(), new HazelcastJsonValue(t.toString()));
         logger.info("Transaction written to map");
+        return Response.status(201).build(); 
+    }
+
+    // Creates a new transaction (only used to build demo data)
+    @Path("/createbatch")
+    @POST
+    public Response createBatch(@QueryParam("key") String key, List<TransactionBean> batch) {
+        String mapname;
+        if(key != null){
+            mapname = key;
+        } else {
+            mapname = transactionMapName;
+        }
+            
+        logger.info("Creating transactions from batch in map " + mapname);
+        IMap<String, HazelcastJsonValue> imdgmap = retrieveMap(mapname);
+        
+        for (TransactionBean transaction: batch) {
+            logger.info(transaction.toString());
+            imdgmap.put(transaction.getROW(), new HazelcastJsonValue(transaction.toString()));
+        }
+        
+        logger.info("Transactions written to map");
         return Response.status(201).build(); 
     }
 
@@ -50,7 +82,7 @@ public class TransactionHC {
     public Response getByClient(@QueryParam("key") String key) {
         // For now we get the full data set in one go. 
         // If this becomes too big, we'll need to add start and end info based on the pagination
-        Collection<HazelcastJsonValue> transactionsCredit = retrieveMap(transactionMapName).values(Predicates.equal("client_id", key));
+        Collection<HazelcastJsonValue> transactionsCredit = retrieveMap(transactionMapName).values(Predicates.equal("CLIENT_ID", key));
 
         List<String> transactions = new ArrayList<String>();
 
@@ -72,6 +104,14 @@ public class TransactionHC {
             .header("Access-Control-Max-Age", "1209600")
             .entity(transactions.toString())
             .build();
+    }
+
+    @Path("/delete")
+    @DELETE
+    public Response delete(@QueryParam("key") String key) {
+        logger.info("Deleting map :" + key);
+        retrieveMap(key).destroy();
+        return Response.status(201).build(); 
     }
 
 }
