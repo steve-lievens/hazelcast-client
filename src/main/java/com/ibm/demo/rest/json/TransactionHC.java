@@ -4,6 +4,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastJsonValue;
+import com.hazelcast.core.DistributedObject;
 import com.hazelcast.map.IMap;
 import com.hazelcast.query.Predicates;
 
@@ -111,6 +112,20 @@ public class TransactionHC {
     public Response delete(@QueryParam("key") String key) {
         logger.info("Deleting map :" + key);
         retrieveMap(key).destroy();
+        return Response.status(201).build(); 
+    }
+
+    @Path("/getMaps")
+    @GET
+    public Response getMaps() {
+        logger.info("Retrieving maps from Hazelcast IMDG cluster :");
+        Collection<DistributedObject> distributedObjects = hazelcastInstance.getDistributedObjects();
+        for (DistributedObject object : distributedObjects) {
+            if (object instanceof IMap) {
+                logger.info("Found map : " + object.getName());
+            }
+        }
+
         return Response.status(201).build(); 
     }
 
