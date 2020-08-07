@@ -38,7 +38,7 @@ public class HazelcastClientConfig {
         logger.info("The application is starting...");
         logger.info("The application is using environment variables :");
         logger.info("HAZELCAST_HOST=" + System.getenv("HAZELCAST_HOST"));
-        logger.info("HAZELCAST_MAPNAME=" + System.getenv("HAZELCAST_HOST"));
+        logger.info("HAZELCAST_MAPNAME=" + System.getenv("HAZELCAST_MAPNAME"));
         logger.info("If these environment variables aren't present, the app reverts to its defaults specified in application.properties.");
         logger.info("Hazelcast client connecting to : " + hcClusterAddress);
         logger.info("Hazelcast client uses by default map : " + hcMapName);
