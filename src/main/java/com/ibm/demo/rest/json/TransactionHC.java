@@ -27,6 +27,9 @@ public class TransactionHC {
     @ConfigProperty(name = "HC_MAPNAME")
     private String transactionMapName;
 
+    @ConfigProperty(name = "CLIENT_ID")
+    private String clientID;
+
     @Inject
     HazelcastInstance hazelcastInstance;
 
@@ -83,7 +86,13 @@ public class TransactionHC {
     public Response getByClient(@QueryParam("key") String key) {
         // For now we get the full data set in one go. 
         // If this becomes too big, we'll need to add start and end info based on the pagination
-        Collection<HazelcastJsonValue> transactionsCredit = retrieveMap(transactionMapName).values(Predicates.equal("CLIENT_ID,", key));
+
+        // When no parameter is specified, we take the client id from the app properties.
+        if(key == null){
+            key = clientID;
+        }
+
+        Collection<HazelcastJsonValue> transactionsCredit = retrieveMap(transactionMapName).values(Predicates.equal("CLIENT_ID", key));
 
         List<String> transactions = new ArrayList<String>();
 
@@ -110,10 +119,9 @@ public class TransactionHC {
     @Path("/getAllData")
     @GET
     public Response getAllData(@QueryParam("limitby") int limit) {
-                // For now we get the full data set in one go. 
+        // For now we get the full data set in one go. 
         // If this becomes too big, we'll need to add start and end info based on the pagination
-        //IMap<String, HazelcastJsonValue> map = retrieveMap(transactionMapName);
-        IMap<String, HazelcastJsonValue> map = retrieveMap("test");
+        IMap<String, HazelcastJsonValue> map = retrieveMap(transactionMapName);
         List<String> transactions = new ArrayList<String>();
 
         logger.info("Listing all transactions ");
