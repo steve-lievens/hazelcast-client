@@ -1,0 +1,17 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: hz-custom-local-pv-claim
+  namespace: kbc-demo-hazelcast-cluster-public
+  annotations:
+    ibm.io/auto-create-bucket: "false"
+    ibm.io/auto-delete-bucket: "false"
+    ibm.io/bucket: "jar-bucket"
+    ibm.io/secret-name: "cos-write-access"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 8Gi # Enter a fictitious value
+  storageClassName: ibmc-s3fs-standard-perf-regional
