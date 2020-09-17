@@ -33,15 +33,22 @@ public class HazelcastClientConfig {
     private String hcClusterAddress;
     @ConfigProperty(name = "HC_MAPNAME")
     private String hcMapName;
+    @ConfigProperty(name = "CLIENT_ID")
+    private String clientID;
 
-    void onStart(@Observes StartupEvent ev) {               
-        logger.info("The application is starting...");
+    void onStart(@Observes StartupEvent ev) {
+        logger.info("-----------------------------------------------------------------------------------");
+        logger.info("Application startup sequence");
         logger.info("The application is using environment variables :");
         logger.info("HAZELCAST_HOST=" + System.getenv("HAZELCAST_HOST"));
         logger.info("HAZELCAST_MAPNAME=" + System.getenv("HAZELCAST_MAPNAME"));
+        logger.info("CLIENT_IDENTIFIER=" + System.getenv("CLIENT_IDENTIFIER"));
+        
         logger.info("If these environment variables aren't present, the app reverts to its defaults specified in application.properties.");
         logger.info("Hazelcast client connecting to : " + hcClusterAddress);
-        logger.info("Hazelcast client uses by default map : " + hcMapName);
+        logger.info("Hazelcast client is using map : " + hcMapName);
+        logger.info("Transactions used are from client id : " + clientID);
+
         ClientConfig clientConfig = new ClientConfig();
         clientConfig.getNetworkConfig().addAddress(hcClusterAddress);
         clientConfig.getConnectionStrategyConfig().setReconnectMode(ClientConnectionStrategyConfig.ReconnectMode.ON);
@@ -54,6 +61,9 @@ public class HazelcastClientConfig {
                 logger.info("Found map : " + object.getName());
             }
         }
+        logger.info("Application startup sequence ended");
+        logger.info("-----------------------------------------------------------------------------------");
+
     }
 
     void onStop(@Observes ShutdownEvent ev) {               
