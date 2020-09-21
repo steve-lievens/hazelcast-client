@@ -35,6 +35,8 @@ public class HazelcastClientConfig {
     private String hcMapName;
     @ConfigProperty(name = "CLIENT_ID")
     private String clientID;
+    @ConfigProperty(name = "ACCOUNT_ID")
+    private String accountID;
 
     void onStart(@Observes StartupEvent ev) {
         logger.info("-----------------------------------------------------------------------------------");
@@ -43,11 +45,13 @@ public class HazelcastClientConfig {
         logger.info("HAZELCAST_HOST=" + System.getenv("HAZELCAST_HOST"));
         logger.info("HAZELCAST_MAPNAME=" + System.getenv("HAZELCAST_MAPNAME"));
         logger.info("CLIENT_IDENTIFIER=" + System.getenv("CLIENT_IDENTIFIER"));
+        logger.info("ACCOUNT_IDENTIFIER=" + System.getenv("ACCOUNT_IDENTIFIER"));
         
         logger.info("If these environment variables aren't present, the app reverts to its defaults specified in application.properties.");
         logger.info("Hazelcast client connecting to : " + hcClusterAddress);
         logger.info("Hazelcast client is using map : " + hcMapName);
         logger.info("Transactions used are from client id : " + clientID);
+        logger.info("Transactions used are from account id : " + accountID);
 
         ClientConfig clientConfig = new ClientConfig();
         clientConfig.getNetworkConfig().addAddress(hcClusterAddress);

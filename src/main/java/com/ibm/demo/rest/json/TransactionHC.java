@@ -26,9 +26,12 @@ public class TransactionHC {
 
     @ConfigProperty(name = "HC_MAPNAME")
     private String transactionMapName;
-
+    
     @ConfigProperty(name = "CLIENT_ID")
     private String clientID;
+
+    @ConfigProperty(name = "ACCOUNT_ID")
+    private String accountID;
 
     @Inject
     HazelcastInstance hazelcastInstance;
@@ -103,6 +106,43 @@ public class TransactionHC {
         }
 
         logger.info(transactions.toString());
+
+        // Adding a response with extra headers for CORS
+        return Response
+            .status(200)
+            .header("Access-Control-Allow-Origin", "*")
+            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+            .header("Access-Control-Allow-Credentials", "true")
+            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+            .header("Access-Control-Max-Age", "1209600")
+            .entity(transactions.toString())
+            .build();
+    }
+
+    // Retrieve all transactions of a single client. (By Client ID)
+    // Needs a "key" query parameter which is equal to the client id.
+    @Path("/getByAccount")
+    @GET
+    public Response getByAccount(@QueryParam("key") String key) {
+        // For now we get the full data set in one go. 
+        // If this becomes too big, we'll need to add start and end info based on the pagination
+
+        // When no parameter is specified, we take the account id from the app properties.
+        if(key == null){
+            key = accountID;
+        }
+
+        Collection<HazelcastJsonValue> transactionsCredit = retrieveMap(transactionMapName).values(Predicates.equal("ACCOUNT_ID", key));
+
+        List<String> transactions = new ArrayList<String>();
+
+        logger.info("Listing transactions for account : " + key);
+        for (HazelcastJsonValue transactionCredit: transactionsCredit) {
+            //logger.info("> " + transactionCredit.toString());
+            transactions.add(transactionCredit.toString());
+        }
+
+        //logger.info(transactions.toString());
 
         // Adding a response with extra headers for CORS
         return Response
