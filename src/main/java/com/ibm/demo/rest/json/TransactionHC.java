@@ -142,7 +142,7 @@ public class TransactionHC {
             transactions.add(transactionCredit.toString());
         }
 
-        //logger.info(transactions.toString());
+        logger.info("Received number of transactions : " + Integer.toString(transactions.size()));
 
         // Adding a response with extra headers for CORS
         return Response
