@@ -62,12 +62,13 @@ public class HazelcastClientConfig {
         Collection<DistributedObject> distributedObjects = hc_instance.getDistributedObjects();
         for (DistributedObject object : distributedObjects) {
             if (object instanceof IMap) {
-                logger.info("Found map : " + object.getName());
+                String mapname = object.getName();
+                int mapsize = hc_instance.getMap(mapname).size();
+                logger.info("Found map : " + mapname + ", size : " + Integer.toString(mapsize));
             }
         }
         logger.info("Application startup sequence ended");
         logger.info("-----------------------------------------------------------------------------------");
-
     }
 
     void onStop(@Observes ShutdownEvent ev) {               

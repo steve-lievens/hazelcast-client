@@ -161,24 +161,28 @@ public class TransactionHC {
     public Response getAllData(@QueryParam("limitby") int limit) {
         // For now we get the full data set in one go. 
         // If this becomes too big, we'll need to add start and end info based on the pagination
-        IMap<String, HazelcastJsonValue> map = retrieveMap(transactionMapName);
+//        IMap<String, HazelcastJsonValue> map = retrieveMap(transactionMapName);
+        IMap<String, String> map = hazelcastInstance.getMap(transactionMapName);
         List<String> transactions = new ArrayList<String>();
 
         logger.info("Listing all transactions ");
         int[] ln = new int[1];
+
         if (limit > 0)
 					map	.values()
 						.stream()
 						.limit(limit)
 						.forEach(v -> {
-							System.out.println(String.format("%06d", ln[0]++) + ": " + v.toString());
+                            System.out.println(String.format("%06d", ln[0]++) + ": " + v.toString());
 						});
 				else
 					map	.values()
 						.stream()
 						.forEach(v -> {
 							System.out.println(String.format("%06d", ln[0]++) + ": " + v.toString());
-						});
+                        });
+                        
+        logger.info("Number of entries : " + ln[0]);
 
         /*
         for (HazelcastJsonValue transactionCredit: transactionsCredit) {
@@ -200,11 +204,29 @@ public class TransactionHC {
             .build();
     }
 
-    @Path("/delete")
+    @Path("/deletemap")
     @DELETE
-    public Response delete(@QueryParam("key") String key) {
+    public Response deleteMap(@QueryParam("key") String key) {
         logger.info("Deleting map :" + key);
         retrieveMap(key).destroy();
+        return Response.status(201).build(); 
+    }
+
+    @Path("/clearmap")
+    @GET
+    public Response clearMap(@QueryParam("key") String key) {
+        logger.info("Clearing map:" + key);
+        if(key == null){
+            logger.info("This method requires a key query parameter with the name of the map as a value.");
+            return Response.status(500).build(); 
+        }
+
+        IMap<String, HazelcastJsonValue> map = retrieveMap(key);
+        int mapsize = map.size();
+        logger.info("Found map : " + key + ", size : " + Integer.toString(mapsize));    
+        map.clear();
+        logger.info("Cleared map : " + key);
+
         return Response.status(201).build(); 
     }
 
@@ -215,7 +237,11 @@ public class TransactionHC {
         Collection<DistributedObject> distributedObjects = hazelcastInstance.getDistributedObjects();
         for (DistributedObject object : distributedObjects) {
             if (object instanceof IMap) {
-                logger.info("Found map : " + object.getName());
+                
+                String mapname = object.getName();
+                int mapsize = hazelcastInstance.getMap(mapname).size();
+                logger.info("Found map : " + mapname + ", size : " + Integer.toString(mapsize));
+
             }
         }
 
