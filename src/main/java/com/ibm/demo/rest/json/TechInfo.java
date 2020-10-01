@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import java.util.Collection;
 
 import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.HazelcastJsonValue;
 import com.hazelcast.core.DistributedObject;
 import com.hazelcast.map.IMap;
 
@@ -54,5 +55,26 @@ public class TechInfo {
         logger.info("returning : " + jsonReturn);
 
         return Response.status(200).entity(jsonReturn).build();
-    }        
+    }
+    
+    @Path("/clearmaps")
+    @GET
+    public Response clearMaps() {
+        logger.info("Doing a clear map on all maps !!!");
+        String jsonReturn = "{}";
+
+        logger.info("Retrieving maps from Hazelcast IMDG cluster :");
+        Collection<DistributedObject> distributedObjects = hazelcastInstance.getDistributedObjects();
+        for (DistributedObject object : distributedObjects) {
+            if (object instanceof IMap) {
+                String mapname = object.getName();
+                IMap<String, HazelcastJsonValue> map = hazelcastInstance.getMap(mapname);
+                int mapsize = map.size();
+                logger.info("Found map : " + mapname + ", size : " + Integer.toString(mapsize) + ". Clearing it now ...");
+                map.clear();
+            }
+        }
+        
+        return Response.status(200).entity(jsonReturn).build();
+    }
 }
