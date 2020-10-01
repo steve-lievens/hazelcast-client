@@ -46,8 +46,9 @@ public class HazelcastClientConfig {
         logger.info("HAZELCAST_MAPNAME=" + System.getenv("HAZELCAST_MAPNAME"));
         logger.info("CLIENT_IDENTIFIER=" + System.getenv("CLIENT_IDENTIFIER"));
         logger.info("ACCOUNT_IDENTIFIER=" + System.getenv("ACCOUNT_IDENTIFIER"));
-        
-        logger.info("If these environment variables aren't present, the app reverts to its defaults specified in application.properties.");
+
+        logger.info("If these environment variables aren't present,");
+        logger.info("the app reverts to its defaults specified in application.properties.");
         logger.info("Hazelcast client connecting to : " + hcClusterAddress);
         logger.info("Hazelcast client is using map : " + hcMapName);
         logger.info("Transactions used are from client id : " + clientID);
@@ -71,13 +72,12 @@ public class HazelcastClientConfig {
         logger.info("-----------------------------------------------------------------------------------");
     }
 
-    void onStop(@Observes ShutdownEvent ev) {               
+    void onStop(@Observes ShutdownEvent ev) {
         logger.info("The application is stopping...");
     }
 
     @Produces
     HazelcastInstance createInstance() {
-    
         return hc_instance;
     }
 }

@@ -36,7 +36,7 @@ public class TransactionHC {
     @Inject
     HazelcastInstance hazelcastInstance;
 
-    private IMap<String, HazelcastJsonValue> retrieveMap(String i_mapname) {
+    private IMap<Integer, HazelcastJsonValue> retrieveMap(String i_mapname) {
         logger.info("Working with map " + i_mapname);
         return hazelcastInstance.getMap(i_mapname);
     }
@@ -54,7 +54,7 @@ public class TransactionHC {
             
         logger.info("Creating transaction in map " + mapname);
         logger.info(t.toString());
-        retrieveMap(mapname).put(t.getROW(), new HazelcastJsonValue(t.toString()));
+        retrieveMap(mapname).put(Integer.parseInt(t.getROW()), new HazelcastJsonValue(t.toString()));
         logger.info("Transaction written to map");
         return Response.status(201).build(); 
     }
@@ -71,11 +71,11 @@ public class TransactionHC {
         }
             
         logger.info("Creating transactions from batch in map " + mapname);
-        IMap<String, HazelcastJsonValue> imdgmap = retrieveMap(mapname);
+        IMap<Integer, HazelcastJsonValue> imdgmap = retrieveMap(mapname);
         
         for (TransactionBean transaction: batch) {
             logger.info(transaction.toString());
-            imdgmap.put(transaction.getROW(), new HazelcastJsonValue(transaction.toString()));
+            imdgmap.put(Integer.parseInt(transaction.getROW()), new HazelcastJsonValue(transaction.toString()));
         }
         
         logger.info("Transactions written to map");
@@ -221,7 +221,7 @@ public class TransactionHC {
             return Response.status(500).build(); 
         }
 
-        IMap<String, HazelcastJsonValue> map = retrieveMap(key);
+        IMap<Integer, HazelcastJsonValue> map = retrieveMap(key);
         int mapsize = map.size();
         logger.info("Found map : " + key + ", size : " + Integer.toString(mapsize));    
         map.clear();
