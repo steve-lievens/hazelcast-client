@@ -206,13 +206,9 @@ public class TransactionHC {
         int mapsize = map.size();
         logger.info("Found map : " + key + ", size : " + Integer.toString(mapsize));
 
-        // map.clear();
-        
         map.keySet().stream().forEach(v -> {
-            map.delete(v);
+            map.remove(v);
         });
-
-        // Predicate<Integer, HazelcastJsonValue> p = new SqlPredicate("ROW >= 0");
 
         IMap<Integer, HazelcastJsonValue> emptymap = retrieveMap(key);
         mapsize = emptymap.size();
