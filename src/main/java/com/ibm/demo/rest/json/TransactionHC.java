@@ -158,9 +158,15 @@ public class TransactionHC {
 
     @Path("/getAllData")
     @GET
-    public Response getAllData(@QueryParam("limitby") int limit) {
+    public Response getAllData(@QueryParam("limitby") int limit, @QueryParam("key") String key) {
+        String mapname;
+        if (key != null) {
+            mapname = key;
+        } else {
+            mapname = transactionMapName;
+        }
         // Debug method which prints all data to logger.
-        IMap<Integer, HazelcastJsonValue> imdgmap = retrieveMap(transactionMapName);
+        IMap<Integer, HazelcastJsonValue> imdgmap = retrieveMap(mapname);
         List<String> transactions = new ArrayList<String>();
 
         logger.info("Listing all transactions ");
