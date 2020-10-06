@@ -213,7 +213,7 @@ public class TransactionHC {
         IMap<Integer, HazelcastJsonValue> emptymap = retrieveMap(key);
         mapsize = emptymap.size();
         logger.info("Found map : " + key + ", size : " + Integer.toString(mapsize));
-        logger.info("Cleared map : " + key);
+        logger.info("Cleared map (using remove method) : " + key);
 
         return Response.status(201).build();
     }
