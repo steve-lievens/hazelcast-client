@@ -40,7 +40,7 @@ public class HazelcastClientConfig {
 
     void onStart(@Observes StartupEvent ev) {
         logger.info("-----------------------------------------------------------------------------------");
-        logger.info("Application startup sequence");
+        logger.info("Application startup sequence - Build 22");
         logger.info("The application is using environment variables :");
         logger.info("HAZELCAST_HOST=" + System.getenv("HAZELCAST_HOST"));
         logger.info("HAZELCAST_MAPNAME=" + System.getenv("HAZELCAST_MAPNAME"));
@@ -68,7 +68,7 @@ public class HazelcastClientConfig {
                 logger.info("Found map : " + mapname + ", size : " + Integer.toString(mapsize));
             }
         }
-        logger.info("Application startup sequence ended");
+        logger.info("Application startup sequence ended - Build 22");
         logger.info("-----------------------------------------------------------------------------------");
     }
 
