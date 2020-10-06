@@ -95,11 +95,20 @@ public class TechInfo {
         for (DistributedObject object : distributedObjects) {
             if (object instanceof IMap) {
                 String mapname = object.getName();
-                IMap<String, HazelcastJsonValue> map = hazelcastInstance.getMap(mapname);
+                IMap<Integer, HazelcastJsonValue> map = hazelcastInstance.getMap(mapname);
                 int mapsize = map.size();
                 logger.info(
                         "Found map : " + mapname + ", size : " + Integer.toString(mapsize) + ". Clearing it now ...");
-                map.clear();
+                //map.clear();
+                map.keySet().stream().forEach(v -> {
+                    map.remove(v);
+                });
+
+                IMap<Integer, HazelcastJsonValue> emptymap = hazelcastInstance.getMap(mapname);
+                mapsize = emptymap.size();
+                logger.info("Found map : " + mapname + ", size : " + Integer.toString(mapsize));
+                logger.info("Cleared map (using remove method) : " + mapname);
+        
             }
         }
 
