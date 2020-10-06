@@ -21,7 +21,7 @@ import com.hazelcast.map.IMap;
 @Consumes(MediaType.APPLICATION_JSON)
 
 public class TechInfo {
-    private final Logger logger = Logger.getLogger(UIModifier.class.getName());
+    private final Logger logger = Logger.getLogger(TechInfo.class.getName());
 
     @ConfigProperty(name = "UI_LOGOURL")
     private String logoURL;
