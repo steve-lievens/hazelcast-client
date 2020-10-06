@@ -7,6 +7,8 @@ import com.hazelcast.core.HazelcastJsonValue;
 import com.hazelcast.core.DistributedObject;
 import com.hazelcast.map.IMap;
 import com.hazelcast.query.Predicates;
+//import com.hazelcast.query.Predicate;
+
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -26,7 +28,7 @@ public class TransactionHC {
 
     @ConfigProperty(name = "HC_MAPNAME")
     private String transactionMapName;
-    
+
     @ConfigProperty(name = "CLIENT_ID")
     private String clientID;
 
@@ -46,17 +48,17 @@ public class TransactionHC {
     @POST
     public Response create(@QueryParam("key") String key, TransactionBean t) {
         String mapname;
-        if(key != null){
+        if (key != null) {
             mapname = key;
         } else {
             mapname = transactionMapName;
         }
-            
+
         logger.info("Creating transaction in map " + mapname);
         logger.info(t.toString());
         retrieveMap(mapname).put(Integer.parseInt(t.getROW()), new HazelcastJsonValue(t.toString()));
         logger.info("Transaction written to map");
-        return Response.status(201).build(); 
+        return Response.status(201).build();
     }
 
     // Creates a new transaction (only used to build demo data)
@@ -64,22 +66,22 @@ public class TransactionHC {
     @POST
     public Response createBatch(@QueryParam("key") String key, List<TransactionBean> batch) {
         String mapname;
-        if(key != null){
+        if (key != null) {
             mapname = key;
         } else {
             mapname = transactionMapName;
         }
-            
+
         logger.info("Creating transactions from batch in map " + mapname);
         IMap<Integer, HazelcastJsonValue> imdgmap = retrieveMap(mapname);
-        
-        for (TransactionBean transaction: batch) {
+
+        for (TransactionBean transaction : batch) {
             logger.info(transaction.toString());
             imdgmap.put(Integer.parseInt(transaction.getROW()), new HazelcastJsonValue(transaction.toString()));
         }
-        
+
         logger.info("Transactions written to map");
-        return Response.status(201).build(); 
+        return Response.status(201).build();
     }
 
     // Retrieve all transactions of a single client. (By Client ID)
@@ -87,36 +89,35 @@ public class TransactionHC {
     @Path("/getByClient")
     @GET
     public Response getByClient(@QueryParam("key") String key) {
-        // For now we get the full data set in one go. 
-        // If this becomes too big, we'll need to add start and end info based on the pagination
+        // For now we get the full data set in one go.
+        // If this becomes too big, we'll need to add start and end info based on the
+        // pagination
 
-        // When no parameter is specified, we take the client id from the app properties.
-        if(key == null){
+        // When no parameter is specified, we take the client id from the app
+        // properties.
+        if (key == null) {
             key = clientID;
         }
 
-        Collection<HazelcastJsonValue> transactionsCredit = retrieveMap(transactionMapName).values(Predicates.equal("CLIENT_ID", key));
+        Collection<HazelcastJsonValue> transactionsCredit = retrieveMap(transactionMapName)
+                .values(Predicates.equal("CLIENT_ID", key));
 
         List<String> transactions = new ArrayList<String>();
 
         logger.info("Listing transactions for client : " + key);
-        for (HazelcastJsonValue transactionCredit: transactionsCredit) {
-            //logger.info("> " + transactionCredit.toString());
+        for (HazelcastJsonValue transactionCredit : transactionsCredit) {
+            // logger.info("> " + transactionCredit.toString());
             transactions.add(transactionCredit.toString());
         }
 
         logger.info(transactions.toString());
 
         // Adding a response with extra headers for CORS
-        return Response
-            .status(200)
-            .header("Access-Control-Allow-Origin", "*")
-            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-            .header("Access-Control-Allow-Credentials", "true")
-            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-            .header("Access-Control-Max-Age", "1209600")
-            .entity(transactions.toString())
-            .build();
+        return Response.status(200).header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .header("Access-Control-Max-Age", "1209600").entity(transactions.toString()).build();
     }
 
     // Retrieve all transactions of a single client. (By Client ID)
@@ -124,84 +125,64 @@ public class TransactionHC {
     @Path("/getByAccount")
     @GET
     public Response getByAccount(@QueryParam("key") String key) {
-        // For now we get the full data set in one go. 
-        // If this becomes too big, we'll need to add start and end info based on the pagination
+        // For now we get the full data set in one go.
+        // If this becomes too big, we'll need to add start and end info based on the
+        // pagination
 
-        // When no parameter is specified, we take the account id from the app properties.
-        if(key == null){
+        // When no parameter is specified, we take the account id from the app
+        // properties.
+        if (key == null) {
             key = accountID;
         }
 
-        Collection<HazelcastJsonValue> transactionsCredit = retrieveMap(transactionMapName).values(Predicates.equal("ACCOUNT_ID", key));
+        Collection<HazelcastJsonValue> transactionsCredit = retrieveMap(transactionMapName)
+                .values(Predicates.equal("ACCOUNT_ID", key));
 
         List<String> transactions = new ArrayList<String>();
 
         logger.info("Listing transactions for account : " + key);
-        for (HazelcastJsonValue transactionCredit: transactionsCredit) {
-            //logger.info("> " + transactionCredit.toString());
+        for (HazelcastJsonValue transactionCredit : transactionsCredit) {
+            // logger.info("> " + transactionCredit.toString());
             transactions.add(transactionCredit.toString());
         }
 
         logger.info("Received number of transactions : " + Integer.toString(transactions.size()));
 
         // Adding a response with extra headers for CORS
-        return Response
-            .status(200)
-            .header("Access-Control-Allow-Origin", "*")
-            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-            .header("Access-Control-Allow-Credentials", "true")
-            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-            .header("Access-Control-Max-Age", "1209600")
-            .entity(transactions.toString())
-            .build();
+        return Response.status(200).header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .header("Access-Control-Max-Age", "1209600").entity(transactions.toString()).build();
     }
 
     @Path("/getAllData")
     @GET
     public Response getAllData(@QueryParam("limitby") int limit) {
-        // For now we get the full data set in one go. 
-        // If this becomes too big, we'll need to add start and end info based on the pagination
-//        IMap<String, HazelcastJsonValue> map = retrieveMap(transactionMapName);
-        IMap<String, String> map = hazelcastInstance.getMap(transactionMapName);
+        // Debug method which prints all data to logger.
+        IMap<Integer, HazelcastJsonValue> imdgmap = retrieveMap(transactionMapName);
         List<String> transactions = new ArrayList<String>();
 
         logger.info("Listing all transactions ");
         int[] ln = new int[1];
 
         if (limit > 0)
-					map	.values()
-						.stream()
-						.limit(limit)
-						.forEach(v -> {
-                            System.out.println(String.format("%06d", ln[0]++) + ": " + v.toString());
-						});
-				else
-					map	.values()
-						.stream()
-						.forEach(v -> {
-							System.out.println(String.format("%06d", ln[0]++) + ": " + v.toString());
-                        });
-                        
+            imdgmap.values().stream().limit(limit).forEach(v -> {
+                System.out.println(String.format("%06d", ln[0]++) + ": " + v.toString());
+            });
+        else
+            imdgmap.values().stream().forEach(v -> {
+                System.out.println(String.format("%06d", ln[0]++) + ": " + v.toString());
+            });
+
         logger.info("Number of entries : " + ln[0]);
 
-        /*
-        for (HazelcastJsonValue transactionCredit: transactionsCredit) {
-            //logger.info("> " + transactionCredit.toString());
-            transactions.add(transactionCredit.toString());
-        }
-
-        logger.info(transactions.toString());
-*/
         // Adding a response with extra headers for CORS
-        return Response
-            .status(200)
-            .header("Access-Control-Allow-Origin", "*")
-            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-            .header("Access-Control-Allow-Credentials", "true")
-            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-            .header("Access-Control-Max-Age", "1209600")
-            .entity(transactions.toString())
-            .build();
+        return Response.status(200).header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .header("Access-Control-Max-Age", "1209600").entity(transactions.toString()).build();
     }
 
     @Path("/deletemap")
@@ -209,25 +190,36 @@ public class TransactionHC {
     public Response deleteMap(@QueryParam("key") String key) {
         logger.info("Deleting map :" + key);
         retrieveMap(key).destroy();
-        return Response.status(201).build(); 
+        return Response.status(201).build();
     }
 
     @Path("/clearmap")
     @GET
     public Response clearMap(@QueryParam("key") String key) {
         logger.info("Clearing map:" + key);
-        if(key == null){
+        if (key == null) {
             logger.info("This method requires a key query parameter with the name of the map as a value.");
-            return Response.status(500).build(); 
+            return Response.status(500).build();
         }
 
         IMap<Integer, HazelcastJsonValue> map = retrieveMap(key);
         int mapsize = map.size();
-        logger.info("Found map : " + key + ", size : " + Integer.toString(mapsize));    
-        map.clear();
+        logger.info("Found map : " + key + ", size : " + Integer.toString(mapsize));
+
+        // map.clear();
+        
+        map.keySet().stream().forEach(v -> {
+            map.delete(v);
+        });
+
+        // Predicate<Integer, HazelcastJsonValue> p = new SqlPredicate("ROW >= 0");
+
+        IMap<Integer, HazelcastJsonValue> emptymap = retrieveMap(key);
+        mapsize = emptymap.size();
+        logger.info("Found map : " + key + ", size : " + Integer.toString(mapsize));
         logger.info("Cleared map : " + key);
 
-        return Response.status(201).build(); 
+        return Response.status(201).build();
     }
 
     @Path("/getMaps")
@@ -237,7 +229,7 @@ public class TransactionHC {
         Collection<DistributedObject> distributedObjects = hazelcastInstance.getDistributedObjects();
         for (DistributedObject object : distributedObjects) {
             if (object instanceof IMap) {
-                
+
                 String mapname = object.getName();
                 int mapsize = hazelcastInstance.getMap(mapname).size();
                 logger.info("Found map : " + mapname + ", size : " + Integer.toString(mapsize));
@@ -245,7 +237,7 @@ public class TransactionHC {
             }
         }
 
-        return Response.status(201).build(); 
+        return Response.status(201).build();
     }
 
 }
