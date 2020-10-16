@@ -20,6 +20,9 @@ public class UIModifier {
     @ConfigProperty(name = "UI_LOGOURL")
     private String logoURL;
 
+    @ConfigProperty(name = "UI_TABLEHEADER")
+    private String tableHeader;
+
     @Path("/getlogourl")
     @GET
     public Response getLogoURL() {
@@ -31,4 +34,17 @@ public class UIModifier {
 
         return Response.status(200).entity(jsonReturn).build();
     }    
+
+    @Path("/getheader")
+    @GET
+    public Response getHeader() {
+        logger.info("Retrieving Table Header.");
+        logger.info("URL is : " + tableHeader);
+
+        String jsonReturn = "{\"tableheader\":\"" + tableHeader + "\"}";
+        logger.info("returning : " + jsonReturn);
+
+        return Response.status(200).entity(jsonReturn).build();
+    }    
+
 }
