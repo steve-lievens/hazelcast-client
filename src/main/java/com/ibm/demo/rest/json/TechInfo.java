@@ -65,7 +65,12 @@ public class TechInfo {
                     Integer samplekey = Integer.parseInt(mapkeysarray[0].toString());
                     logger.info("Sample Key value : " + samplekey.toString());
                     HazelcastJsonValue samplevalue = map.get(samplekey);
-                    mapsample = samplevalue.toString();
+                    if(samplevalue == null){
+                        mapsample = "";
+                    } else {
+                        mapsample = samplevalue.toString();
+                    }
+                    
                     logger.info("Sample value : " + mapsample);
                 }
                 if (counter != 1) {
