@@ -66,7 +66,7 @@ public class TechInfo {
                     logger.info("Sample Key value : " + samplekey.toString());
                     HazelcastJsonValue samplevalue = map.get(samplekey);
                     if(samplevalue == null){
-                        mapsample = "";
+                        mapsample = "\"\"";
                     } else {
                         mapsample = samplevalue.toString();
                     }
@@ -119,4 +119,32 @@ public class TechInfo {
 
         return Response.status(200).entity(jsonReturn).build();
     }
+
+    @Path("/clearmapshard")
+    @GET
+    public Response clearMapsHard() {
+        logger.info("Doing a hard clear map on all maps !!!");
+        String jsonReturn = "{}";
+
+        logger.info("Retrieving maps from Hazelcast IMDG cluster :");
+        Collection<DistributedObject> distributedObjects = hazelcastInstance.getDistributedObjects();
+        for (DistributedObject object : distributedObjects) {
+            if (object instanceof IMap) {
+                String mapname = object.getName();
+                IMap<Integer, HazelcastJsonValue> map = hazelcastInstance.getMap(mapname);
+                int mapsize = map.size();
+                logger.info(
+                        "Found map : " + mapname + ", size : " + Integer.toString(mapsize) + ". Clearing it now ...");
+                map.clear();
+
+                IMap<Integer, HazelcastJsonValue> emptymap = hazelcastInstance.getMap(mapname);
+                mapsize = emptymap.size();
+                logger.info("Found map : " + mapname + ", size : " + Integer.toString(mapsize));
+                logger.info("Cleared map (using remove method) : " + mapname);
+        
+            }
+        }
+
+        return Response.status(200).entity(jsonReturn).build();
+    }    
 }
