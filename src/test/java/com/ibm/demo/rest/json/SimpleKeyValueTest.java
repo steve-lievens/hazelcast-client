@@ -12,10 +12,9 @@ public class SimpleKeyValueTest {
     @Test
     public void testHelloEndpoint() {
         given()
-          .when().get("/simplekv")
+          .when().get("/ui/getheader")
           .then()
-             .statusCode(200)
-             .body(is("hello"));
+             .statusCode(200);
     }
 
 }
