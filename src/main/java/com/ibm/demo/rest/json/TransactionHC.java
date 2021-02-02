@@ -89,7 +89,7 @@ public class TransactionHC {
     public Response getByClient(@QueryParam("key") String key) {
         // For now we get the full data set in one go.
         // If this becomes too big, we'll need to add start and end info based on the
-        // pagination
+        // pagination.
 
         // When no parameter is specified, we take the client id from the app
         // properties.
