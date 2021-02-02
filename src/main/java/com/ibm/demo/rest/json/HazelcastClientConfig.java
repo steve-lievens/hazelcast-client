@@ -31,6 +31,8 @@ public class HazelcastClientConfig {
 
     @ConfigProperty(name = "HC_ADDRESS")
     private String hcClusterAddress;
+    @ConfigProperty(name = "HC_CLUSTERNAME")
+    private String hcClusterName;
     @ConfigProperty(name = "HC_MAPNAME")
     private String hcMapName;
     @ConfigProperty(name = "CLIENT_ID")
@@ -43,18 +45,22 @@ public class HazelcastClientConfig {
         logger.info("Application startup sequence - Build 22");
         logger.info("The application is using environment variables :");
         logger.info("HAZELCAST_HOST=" + System.getenv("HAZELCAST_HOST"));
+        logger.info("HAZELCAST_CLUSTERNAME=" + System.getenv("HAZELCAST_CLUSTERNAME"));
         logger.info("HAZELCAST_MAPNAME=" + System.getenv("HAZELCAST_MAPNAME"));
         logger.info("CLIENT_IDENTIFIER=" + System.getenv("CLIENT_IDENTIFIER"));
         logger.info("ACCOUNT_IDENTIFIER=" + System.getenv("ACCOUNT_IDENTIFIER"));
 
         logger.info("If these environment variables aren't present,");
         logger.info("the app reverts to its defaults specified in application.properties.");
-        logger.info("Hazelcast client connecting to : " + hcClusterAddress);
+        logger.info("Hazelcast client connecting to address : " + hcClusterAddress);
+        logger.info("Hazelcast client connecting cluster : " + hcClusterName);
         logger.info("Hazelcast client is using map : " + hcMapName);
         logger.info("Transactions used are from client id : " + clientID);
         logger.info("Transactions used are from account id : " + accountID);
 
+        
         ClientConfig clientConfig = new ClientConfig();
+        clientConfig.setClusterName(hcClusterName);
         clientConfig.getNetworkConfig().addAddress(hcClusterAddress);
         clientConfig.getConnectionStrategyConfig().setReconnectMode(ClientConnectionStrategyConfig.ReconnectMode.ON);
         hc_instance = HazelcastClient.newHazelcastClient(clientConfig);
@@ -68,6 +74,7 @@ public class HazelcastClientConfig {
                 logger.info("Found map : " + mapname + ", size : " + Integer.toString(mapsize));
             }
         }
+        
         logger.info("Application startup sequence ended - Build 22");
         logger.info("-----------------------------------------------------------------------------------");
     }

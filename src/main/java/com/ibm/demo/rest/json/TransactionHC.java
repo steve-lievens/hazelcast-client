@@ -7,8 +7,6 @@ import com.hazelcast.core.HazelcastJsonValue;
 import com.hazelcast.core.DistributedObject;
 import com.hazelcast.map.IMap;
 import com.hazelcast.query.Predicates;
-//import com.hazelcast.query.Predicate;
-
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
