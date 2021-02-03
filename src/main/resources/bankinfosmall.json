@@ -1,0 +1,122 @@
+[
+  {
+    "ROW": 1263246,
+    "CLIENT_ID": 232,
+    "ACCOUNT_ID": 192,
+    "TRANS_ID": 3685143,
+    "DATE": 19990606,
+    "TYPE": "DEBIT",
+    "OPERATION": "REMITTANCE_TO_BANK",
+    "K_SYMBOL": "DEMO_RECORD",
+    "AMOUNT": -546.0,
+    "BALANCE": 28647.5
+  },
+  {
+    "ROW": 1263250,
+    "CLIENT_ID": 232,
+    "ACCOUNT_ID": 192,
+    "TRANS_ID": 3685144,
+    "DATE": 19990607,
+    "TYPE": "DEBIT",
+    "OPERATION": "REMITTANCE_TO_BANK",
+    "K_SYMBOL": "DEMO_RECORD",
+    "AMOUNT": -477.0,
+    "BALANCE": 28170.5
+  },
+  {
+    "ROW": 1263254,
+    "CLIENT_ID": 232,
+    "ACCOUNT_ID": 192,
+    "TRANS_ID": 3685145,
+    "DATE": 19990608,
+    "TYPE": "CREDIT",
+    "OPERATION": "COLLECTION_FROM_BANK",
+    "K_SYMBOL": "DEMO_RECORD",
+    "AMOUNT": 268.0,
+    "BALANCE": 28438.5
+  },
+  {
+    "ROW": 1263258,
+    "CLIENT_ID": 232,
+    "ACCOUNT_ID": 192,
+    "TRANS_ID": 3685146,
+    "DATE": 19990609,
+    "TYPE": "CREDIT",
+    "OPERATION": "COLLECTION_FROM_BANK",
+    "K_SYMBOL": "DEMO_RECORD",
+    "AMOUNT": 602.0,
+    "BALANCE": 29040.5
+  },
+  {
+    "ROW": 1263262,
+    "CLIENT_ID": 232,
+    "ACCOUNT_ID": 192,
+    "TRANS_ID": 3685147,
+    "DATE": 19990610,
+    "TYPE": "DEBIT",
+    "OPERATION": "REMITTANCE_TO_BANK",
+    "K_SYMBOL": "DEMO_RECORD",
+    "AMOUNT": -32.0,
+    "BALANCE": 29008.5
+  },
+  {
+    "ROW": 1263266,
+    "CLIENT_ID": 232,
+    "ACCOUNT_ID": 192,
+    "TRANS_ID": 3685148,
+    "DATE": 19990611,
+    "TYPE": "DEBIT",
+    "OPERATION": "REMITTANCE_TO_BANK",
+    "K_SYMBOL": "DEMO_RECORD",
+    "AMOUNT": -295.0,
+    "BALANCE": 28713.5
+  },
+  {
+    "ROW": 1263270,
+    "CLIENT_ID": 232,
+    "ACCOUNT_ID": 192,
+    "TRANS_ID": 3685149,
+    "DATE": 19990612,
+    "TYPE": "DEBIT",
+    "OPERATION": "REMITTANCE_TO_BANK",
+    "K_SYMBOL": "DEMO_RECORD",
+    "AMOUNT": -952.0,
+    "BALANCE": 27761.5
+  },
+  {
+    "ROW": 1263274,
+    "CLIENT_ID": 232,
+    "ACCOUNT_ID": 192,
+    "TRANS_ID": 3685150,
+    "DATE": 19990613,
+    "TYPE": "CREDIT",
+    "OPERATION": "COLLECTION_FROM_BANK",
+    "K_SYMBOL": "DEMO_RECORD",
+    "AMOUNT": 826.0,
+    "BALANCE": 28587.5
+  },
+  {
+    "ROW": 1263278,
+    "CLIENT_ID": 232,
+    "ACCOUNT_ID": 192,
+    "TRANS_ID": 3685151,
+    "DATE": 19990614,
+    "TYPE": "CREDIT",
+    "OPERATION": "CREDIT_IN_CASH",
+    "K_SYMBOL": "DEMO_RECORD",
+    "AMOUNT": 933.0,
+    "BALANCE": 29520.5
+  },
+  {
+    "ROW": 1263282,
+    "CLIENT_ID": 232,
+    "ACCOUNT_ID": 192,
+    "TRANS_ID": 3685152,
+    "DATE": 19990615,
+    "TYPE": "DEBIT",
+    "OPERATION": "REMITTANCE_TO_BANK",
+    "K_SYMBOL": "DEMO_RECORD",
+    "AMOUNT": -97.0,
+    "BALANCE": 29423.5
+  }
+]
