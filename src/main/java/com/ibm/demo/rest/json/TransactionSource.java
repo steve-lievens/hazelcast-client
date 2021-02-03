@@ -167,7 +167,7 @@ public class TransactionSource {
             imdgmap.put(transaction.getInt("ROW"), new HazelcastJsonValue(transaction.toString()));
         }
 
-        logger.info("Transactions written to map");
+        logger.info(Integer.toString(transactionsSmall.length()) + " transactions written to map");
         return Response.status(201).build();
     }
 
@@ -188,11 +188,11 @@ public class TransactionSource {
             mapname = transactionMapName;
         }
 
-        logger.info("Creating transactions from big data set in map " + mapname);
+        logger.info(Integer.toString(transactions.length()) + " transactions written to map");
         IMap<Integer, HazelcastJsonValue> imdgmap = retrieveMap(mapname);
 
-        for (int i = 0; i < transactionsSmall.length(); i++) {
-            JSONObject transaction = transactionsSmall.getJSONObject(i);
+        for (int i = 0; i < transactions.length(); i++) {
+            JSONObject transaction = transactions.getJSONObject(i);
             imdgmap.put(transaction.getInt("ROW"), new HazelcastJsonValue(transaction.toString()));
         }
 
