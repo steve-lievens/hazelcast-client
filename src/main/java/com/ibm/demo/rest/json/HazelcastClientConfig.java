@@ -30,15 +30,15 @@ public class HazelcastClientConfig {
     private HazelcastInstance hc_instance;
 
     @ConfigProperty(name = "HC_ADDRESS")
-    private String hcClusterAddress;
+    String hcClusterAddress;
     @ConfigProperty(name = "HC_CLUSTERNAME")
-    private String hcClusterName;
+    String hcClusterName;
     @ConfigProperty(name = "HC_MAPNAME")
-    private String hcMapName;
+    String hcMapName;
     @ConfigProperty(name = "CLIENT_ID")
-    private String clientID;
+    String clientID;
     @ConfigProperty(name = "ACCOUNT_ID")
-    private String accountID;
+    String accountID;
 
     void onStart(@Observes StartupEvent ev) {
         logger.info("-----------------------------------------------------------------------------------");

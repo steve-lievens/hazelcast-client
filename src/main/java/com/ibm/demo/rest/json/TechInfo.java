@@ -24,7 +24,7 @@ public class TechInfo {
     private final Logger logger = Logger.getLogger(TechInfo.class.getName());
 
     @ConfigProperty(name = "UI_LOGOURL")
-    private String logoURL;
+    String logoURL;
 
     @Inject
     HazelcastInstance hazelcastInstance;

@@ -18,6 +18,8 @@ public class TransactionBean {
     public TransactionBean() {
     }
 
+    /*
+    // All string version - not used anymore
     @Override
     public String toString() {
         return "{" +
@@ -31,6 +33,23 @@ public class TransactionBean {
                 ", \"K_SYMBOL\":\"" + K_SYMBOL + "\"" +
                 ", \"AMOUNT\":\"" + AMOUNT + "\"" +
                 ", \"BALANCE\":\"" + BALANCE + "\"" +
+                "}";
+    }
+    */
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\"ROW\":" + ROW + 
+                ", \"CLIENT_ID\":" + CLIENT_ID +
+                ", \"ACCOUNT_ID\":" + ACCOUNT_ID + 
+                ", \"TRANS_ID\":" + TRANS_ID +
+                ", \"DATE\":" + DATE +
+                ", \"TYPE\":\"" + TYPE + "\"" +
+                ", \"OPERATION\":\"" + OPERATION + "\"" +
+                ", \"K_SYMBOL\":\"" + K_SYMBOL + "\"" +
+                ", \"AMOUNT\":" + AMOUNT + 
+                ", \"BALANCE\":" + BALANCE + 
                 "}";
     }
 

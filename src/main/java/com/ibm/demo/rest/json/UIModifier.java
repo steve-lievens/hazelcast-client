@@ -18,10 +18,10 @@ public class UIModifier {
     private final Logger logger = Logger.getLogger(UIModifier.class.getName());
 
     @ConfigProperty(name = "UI_LOGOURL")
-    private String logoURL;
+    String logoURL;
 
     @ConfigProperty(name = "UI_TABLEHEADER")
-    private String tableHeader;
+    String tableHeader;
 
     @Path("/getlogourl")
     @GET

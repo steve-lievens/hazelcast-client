@@ -25,13 +25,13 @@ public class TransactionHC {
     private final Logger logger = Logger.getLogger(TransactionHC.class.getName());
 
     @ConfigProperty(name = "HC_MAPNAME")
-    private String transactionMapName;
+    String transactionMapName;
 
     @ConfigProperty(name = "CLIENT_ID")
-    private String clientID;
+    String clientID;
 
     @ConfigProperty(name = "ACCOUNT_ID")
-    private String accountID;
+    String accountID;
 
     @Inject
     HazelcastInstance hazelcastInstance;

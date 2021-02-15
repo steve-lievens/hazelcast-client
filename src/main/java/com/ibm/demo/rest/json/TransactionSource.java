@@ -39,13 +39,13 @@ public class TransactionSource {
     private boolean dataLoaded = false;
 
     @ConfigProperty(name = "HC_MAPNAME")
-    private String transactionMapName;
+    String transactionMapName;
 
     @ConfigProperty(name = "API_DATAFILE")
-    private String dataFILE;
+    String dataFILE;
 
     @ConfigProperty(name = "API_DATAFILE_SMALL")
-    private String dataFILESMALL;
+    String dataFILESMALL;
 
     @Inject
     HazelcastInstance hazelcastInstance;
@@ -193,6 +193,7 @@ public class TransactionSource {
 
         for (int i = 0; i < transactions.length(); i++) {
             JSONObject transaction = transactions.getJSONObject(i);
+            logger.info(transaction.toString());
             imdgmap.put(transaction.getInt("ROW"), new HazelcastJsonValue(transaction.toString()));
         }
 
