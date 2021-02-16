@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -23,9 +22,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastJsonValue;
-import com.hazelcast.core.DistributedObject;
 import com.hazelcast.map.IMap;
-import com.hazelcast.query.Predicates;
 
 @Path("/api")
 @Produces(MediaType.APPLICATION_JSON)
