@@ -62,3 +62,10 @@ You can now test with a tool like Postman to POST data to the REST endpoint.
 
 In the Hazelcast management center, you can monitor which maps are being created and how many objects are there. You can even do a query on a key to see the contents of the object.
 
+This client application has several environment variables that can be set to change its behaviour. 
+
+HAZELCAST_HOST=<ip address or hostname of cluster>
+HAZELCAST_CLUSTERNAME=<name of the cluster>
+HAZELCAST_MAPNAME=<map name for the data>
+USERINTERFACE_LOGOURL=<URL to a logo, like http://hostname/logo.png>
+USERINTERFACE_TABLEHEADER=<Text that will sit on top of the transactions table>
